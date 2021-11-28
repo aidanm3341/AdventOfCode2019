@@ -18,4 +18,10 @@ public class ProgramReader {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
+    public List<Integer> readProgramFromString(String programAsLine) throws FileNotFoundException {
+        return Arrays.stream(programAsLine.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
 }
