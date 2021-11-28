@@ -1,6 +1,9 @@
 package lilmachine;
 
-import lilmachine.opcodeMapper.HardCodedMapper;
+import lilmachine.io.input.InputHandler;
+import lilmachine.io.input.SystemInputHandler;
+import lilmachine.io.output.OutputHandler;
+import lilmachine.io.output.SystemOutputHandler;
 import lilmachine.opcodeMapper.OpCodeMapper;
 import lilmachine.opcodeMapper.ReflectionMapper;
 import lilmachine.opcodes.*;
@@ -12,9 +15,15 @@ public class LilMachine {
     private final ProgramState state;
     private final OpCodeMapper opCodeMapper;
 
+    private InputHandler inputHandler;
+    private OutputHandler outputHandler;
+
     public LilMachine(List<Integer> i){
         state = new ProgramState(i);
         opCodeMapper = new ReflectionMapper();
+
+        inputHandler = new SystemInputHandler();
+        outputHandler = new SystemOutputHandler();
     }
 
     public void computeProgram(){
@@ -32,7 +41,22 @@ public class LilMachine {
 
         String value = builder.toString();
 
-        return opCodeMapper.getOpCode(state, value);
+        OpCode opCode = opCodeMapper.getOpCode(state, value);
+
+        if(opCode instanceof Input)
+            ((Input) opCode).setInputHandler(inputHandler);
+        else if(opCode instanceof Output)
+            ((Output) opCode).setOutputHandler(outputHandler);
+
+        return opCode;
+    }
+
+    public void setInputHandler(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
+    }
+
+    public void setOutputHandler(OutputHandler outputHandler) {
+        this.outputHandler = outputHandler;
     }
 
     public List<Integer> getState() {
