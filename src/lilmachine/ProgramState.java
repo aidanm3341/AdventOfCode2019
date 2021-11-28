@@ -20,6 +20,10 @@ public class ProgramState {
         this.instructionPointer = instructionPointer;
     }
 
+    public void incrementIP(int count){
+        instructionPointer += count;
+    }
+
     public int get(int index) {
         return state.get(index);
     }

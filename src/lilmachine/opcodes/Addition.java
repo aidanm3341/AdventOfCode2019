@@ -17,6 +17,6 @@ public class Addition extends OpCode{
     public void apply(ProgramState state) {
         int answer = x.read(state) + y.read(state);
         output.write(state, answer);
-        state.setIP(state.getIP()+4);
+        state.incrementIP(4);
     }
 }

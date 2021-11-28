@@ -1,9 +1,6 @@
 package lilmachine;
 
-import lilmachine.opcodes.Addition;
-import lilmachine.opcodes.Halt;
-import lilmachine.opcodes.Multiplication;
-import lilmachine.opcodes.OpCode;
+import lilmachine.opcodes.*;
 
 import java.util.List;
 
@@ -44,6 +41,14 @@ public class LilMachine {
                 param2 = new Parameter(state.get(state.getIP() + 2), ParameterMode.getMode(value.charAt(1)));
                 param3 = new Parameter(state.get(state.getIP() + 3), ParameterMode.getMode(value.charAt(0)));
                 return new Multiplication(param1, param2, param3);
+            }
+            case 3 -> {
+                param1 = new Parameter(state.get(state.getIP() + 1), ParameterMode.getMode(value.charAt(2)));
+                return new Input(param1);
+            }
+            case 4 -> {
+                param1 = new Parameter(state.get(state.getIP() + 1), ParameterMode.getMode(value.charAt(2)));
+                return new Output(param1);
             }
             case 99 -> {
                 return new Halt();
