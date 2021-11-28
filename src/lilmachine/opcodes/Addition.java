@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
-public class Addition extends OpCode{
+public class Addition implements OpCode{
 
     private final Parameter x, y, output;
 

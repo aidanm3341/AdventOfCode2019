@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
-public class Output extends OpCode{
+public class Output implements OpCode{
 
     private final Parameter input;
 

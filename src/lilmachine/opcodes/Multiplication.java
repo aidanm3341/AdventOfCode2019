@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
-public class Multiplication extends OpCode {
+public class Multiplication implements OpCode {
 
     private final Parameter x, y, output;
 

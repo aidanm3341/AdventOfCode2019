@@ -5,7 +5,7 @@ import lilmachine.ProgramState;
 
 import java.util.Scanner;
 
-public class Input extends OpCode {
+public class Input implements OpCode {
 
     private final Parameter output;
 
