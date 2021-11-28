@@ -1,9 +1,8 @@
 package day2.part2;
 
 import lilmachine.ProgramReader;
-import utils.InputReader;
 import utils.Pair;
-import lilmachine.UnknownOpCodeException;
+import lilmachine.exceptions.UnknownOpCodeException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

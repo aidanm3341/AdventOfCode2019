@@ -1,4 +1,7 @@
-package lilmachine;
+package lilmachine.parameters;
+
+import lilmachine.ProgramState;
+import lilmachine.exceptions.IllegalModeException;
 
 public class Parameter {
 

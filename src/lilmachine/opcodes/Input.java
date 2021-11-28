@@ -1,6 +1,6 @@
 package lilmachine.opcodes;
 
-import lilmachine.Parameter;
+import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
 import java.util.Scanner;

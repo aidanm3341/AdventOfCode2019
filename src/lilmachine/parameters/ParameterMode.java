@@ -1,4 +1,6 @@
-package lilmachine;
+package lilmachine.parameters;
+
+import lilmachine.exceptions.IllegalModeException;
 
 public enum ParameterMode {
     POSITION_MODE, IMMEDIATE_MODE;

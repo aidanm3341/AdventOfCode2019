@@ -1,6 +1,6 @@
 package lilmachine.opcodes;
 
-import lilmachine.Parameter;
+import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
 public class Multiplication extends OpCode {

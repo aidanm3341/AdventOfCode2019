@@ -1,6 +1,9 @@
 package lilmachine;
 
+import lilmachine.exceptions.UnknownOpCodeException;
 import lilmachine.opcodes.*;
+import lilmachine.parameters.Parameter;
+import lilmachine.parameters.ParameterMode;
 
 import java.util.List;
 
