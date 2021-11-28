@@ -1,6 +1,7 @@
 package day3.part1;
 
 import utils.InputReader;
+import utils.Pair;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,8 +11,14 @@ public class Part1 {
     private List<StringBuilder> map;
     private int x, y;
     private int startingX, startingY;
+    private char currentLineMarker;
 
-    public Part1(){ }
+    List<Pair<Integer, Integer>> points;
+
+    public Part1(){
+        currentLineMarker = '1';
+        points = new ArrayList<>();
+    }
 
     public void initialiseMap(List<String> lines){
         int maxX = 0, minX = 0, maxY = 0, minY = 0;
@@ -59,63 +66,69 @@ public class Part1 {
         map.get(y).insert(x, 'o');
     }
 
-    public void parseLineString(String lineString){
+    public void parseLineString(String lineString, char lineMarker){
         x = startingX;
         y = startingY;
         for (String s : lineString.split(",")){
             int instruction = s.charAt(0);
             int amountToMove = Integer.parseInt(s.substring(1));
             switch (instruction) {
-                case 'R' -> goRight(amountToMove);
-                case 'L' -> goLeft(amountToMove);
-                case 'U' -> goUp(amountToMove);
-                case 'D' -> goDown(amountToMove);
+                case 'R' -> goRight(amountToMove, lineMarker);
+                case 'L' -> goLeft(amountToMove, lineMarker);
+                case 'U' -> goUp(amountToMove, lineMarker);
+                case 'D' -> goDown(amountToMove, lineMarker);
             }
         }
     }
 
-    private void drawLineSegment(){
-        if(map.get(y).charAt(x) == '.')
+    private void drawLineSegment(char lineChar){
+        if(map.get(y).charAt(x) != ' ' && map.get(y).charAt(x) != 'o' && map.get(y).charAt(x) != lineChar) {
+            map.get(y).deleteCharAt(x);
             map.get(y).insert(x, 'X'); // found an intersection, mark it with an X
-        else if(map.get(y).charAt(x) == (' '))
-            map.get(y).insert(x, '.'); // just need to write a normal line
+            points.add(new Pair<>(x, y));
+        }
+        else if(map.get(y).charAt(x) == (' ')) {
+            map.get(y).deleteCharAt(x);
+            map.get(y).insert(x, lineChar); // just need to write a normal line
+        }
     }
 
-    private void goRight(int amount){
+    private void goRight(int amount, char lineMarker){
         int targetX = x + amount;
         while(x < targetX){
             x++;
-            drawLineSegment();
+            drawLineSegment(lineMarker);
         }
     }
 
-    private void goLeft(int amount){
+    private void goLeft(int amount, char lineMarker){
         int targetX = x - amount;
         while(x > targetX){
             x--;
-            drawLineSegment();
+            drawLineSegment(lineMarker);
         }
     }
 
-    private void goDown(int amount){
+    private void goDown(int amount, char lineMarker){
         int targetY = y - amount;
         while(y > targetY){
             y--;
-            drawLineSegment();
+            drawLineSegment(lineMarker);
         }
     }
 
-    private void goUp(int amount){
+    private void goUp(int amount, char lineMarker){
         int targetY = y + amount;
         while(y < targetY){
             y++;
-            drawLineSegment();
+            drawLineSegment(lineMarker);
         }
     }
 
     public void parseMultipleLines(List<String> lines){
         for(String line : lines){
-            parseLineString(line);
+            currentLineMarker++;
+            parseLineString(line, currentLineMarker);
         }
     }
 
@@ -128,11 +141,21 @@ public class Part1 {
         return mapString.toString();
     }
 
+    public int calculateClosestIntersectionToOrigin(){
+        int smallestDistance = Integer.MAX_VALUE;
+        for(Pair<Integer, Integer> point : points){
+            int distance = Math.abs(startingX - point.getFst()) + Math.abs(startingY - point.getSnd());
+            smallestDistance = Math.min(smallestDistance, distance);
+        }
+
+        return smallestDistance;
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         Part1 part1 = new Part1();
         List<String> input = new InputReader().readAsList("day3.txt");
         part1.initialiseMap(input);
         part1.parseMultipleLines(input);
-        System.out.println(part1.visualiseMap());
+        System.out.println(part1.calculateClosestIntersectionToOrigin());
     }
 }
