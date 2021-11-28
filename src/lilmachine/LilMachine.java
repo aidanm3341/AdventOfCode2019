@@ -1,39 +1,68 @@
 package lilmachine;
 
+import lilmachine.opcodes.Addition;
+import lilmachine.opcodes.Halt;
+import lilmachine.opcodes.Multiplication;
+import lilmachine.opcodes.OpCode;
+
 import java.util.List;
 
 public class LilMachine {
 
-    private List<Integer> state;
+    private final ProgramState state;
 
     public LilMachine(List<Integer> i){
-        state = i;
+        state = new ProgramState(i);
     }
 
     public void computeProgram(){
-        int programCounter = 0;
-        int opCode;
+        OpCode opCode;
         do{
-            opCode = state.get(programCounter);
-            switch(opCode) {
-                case 1: // add
-                    int addition = state.get(state.get(programCounter + 1)) + state.get(state.get(programCounter + 2));
-                    state.set(state.get(programCounter + 3), addition);
-                    break;
-                case 2: // multiply
-                    int multiplication = state.get(state.get(programCounter + 1)) * state.get(state.get(programCounter + 2));
-                    state.set(state.get(programCounter + 3), multiplication);
-                    break;
-                case 99: // halt
-                    break;
-                default:
-                    throw new UnknownOpCodeException();
+            opCode = getNextOpCode();
+            opCode.apply(state);
+        } while (!(opCode instanceof Halt));
+    }
+
+    private OpCode getNextOpCode(){
+        StringBuilder builder = new StringBuilder(String.valueOf(state.get(state.getIP())));
+        while(builder.length() < 5)
+            builder.insert(0, "0");
+
+        String value = builder.toString();
+
+        int opCode = Integer.parseInt(value.substring(3,5));
+        Parameter param1, param2, param3;
+        switch (opCode) {
+            case 1 -> {
+                param1 = new Parameter(state.get(state.getIP() + 1), ParameterMode.getMode(value.charAt(2)));
+                param2 = new Parameter(state.get(state.getIP() + 2), ParameterMode.getMode(value.charAt(1)));
+                param3 = new Parameter(state.get(state.getIP() + 3), ParameterMode.getMode(value.charAt(0)));
+                return new Addition(param1, param2, param3);
             }
-            programCounter += 4;
-        } while (opCode != 99);
+            case 2 -> {
+                param1 = new Parameter(state.get(state.getIP() + 1), ParameterMode.getMode(value.charAt(2)));
+                param2 = new Parameter(state.get(state.getIP() + 2), ParameterMode.getMode(value.charAt(1)));
+                param3 = new Parameter(state.get(state.getIP() + 3), ParameterMode.getMode(value.charAt(0)));
+                return new Multiplication(param1, param2, param3);
+            }
+            case 99 -> {
+                return new Halt();
+            }
+            default -> throw new UnknownOpCodeException();
+        }
     }
 
     public List<Integer> getState() {
-        return state;
+        return state.getState();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Integer i : state.getState()){
+            builder.append(",").append(i);
+        }
+        builder.deleteCharAt(0);
+        return "LilMachine: " + builder.toString();
     }
 }
