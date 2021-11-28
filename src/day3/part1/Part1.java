@@ -3,24 +3,60 @@ package day3.part1;
 import utils.InputReader;
 
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Part1 {
-    private final List<List<Character>> map;
+    private List<StringBuilder> map;
     private int x, y;
     private int startingX, startingY;
 
-    public Part1(){
-        x = 0;
-        y = 0;
-        startingX = x;
-        startingY = y;
+    public Part1(){ }
 
-        map = new LinkedList<>();
-        List<Character> firstRow = new LinkedList<>();
-        firstRow.add('o');
-        map.add(firstRow); // first row
+    public void initialiseMap(List<String> lines){
+        int maxX = 0, minX = 0, maxY = 0, minY = 0;
+        int currentX, currentY;
+
+        for(String line : lines) {
+            currentX = 0;
+            currentY = 0;
+            for (String s : line.split(",")) {
+                int instruction = s.charAt(0);
+                int amountToMove = Integer.parseInt(s.substring(1));
+                switch (instruction) {
+                    case 'R' -> {
+                        currentX += amountToMove;
+                        maxX = Math.max(maxX, currentX);
+                    }
+                    case 'L' -> {
+                        currentX -= amountToMove;
+                        minX = Math.min(minX, currentX);
+                    }
+                    case 'U' -> {
+                        currentY += amountToMove;
+                        maxY = Math.max(maxY, currentY);
+                    }
+                    case 'D' -> {
+                        currentY -= amountToMove;
+                        minY = Math.min(minY, currentY);
+                    }
+                }
+            }
+        }
+
+        int actualWidth = Math.abs(minX) + maxX + 1;
+        int actualHeight = Math.abs(minY) + maxY + 1;
+
+        map = new ArrayList<>(actualHeight);
+        for (int i = 0; i < actualHeight; i++) {
+            StringBuilder row = new StringBuilder(actualWidth);
+            row.append(" ".repeat(actualWidth));
+            map.add(row);
+        }
+
+        startingX = x = Math.abs(minX);
+        startingY = y = Math.abs(minY);
+        map.get(y).insert(x, 'o');
     }
 
     public void parseLineString(String lineString){
@@ -29,35 +65,20 @@ public class Part1 {
         for (String s : lineString.split(",")){
             int instruction = s.charAt(0);
             int amountToMove = Integer.parseInt(s.substring(1));
-            switch (instruction){
-                case 'R':
-                    goRight(amountToMove);
-                    break;
-                case 'L':
-                    goLeft(amountToMove);
-                    break;
-                case 'U':
-                    goUp(amountToMove);
-                    break;
-                case 'D':
-                    goDown(amountToMove);
-                    break;
+            switch (instruction) {
+                case 'R' -> goRight(amountToMove);
+                case 'L' -> goLeft(amountToMove);
+                case 'U' -> goUp(amountToMove);
+                case 'D' -> goDown(amountToMove);
             }
         }
     }
 
     private void drawLineSegment(){
-        if(map.size() <= y)
-            while(map.size() <= y)
-                map.add(new LinkedList<>());
-        if(map.get(y).size() <= x)
-            while(map.get(y).size() <= x)
-                map.get(y).add(' ');
-
-        if(map.get(y).get(x).equals('.'))
-            map.get(y).set(x, 'X'); // found an intersection, mark it with an X
-        else if(map.get(y).get(x).equals(' '))
-            map.get(y).set(x, '.'); // just need to write a normal line
+        if(map.get(y).charAt(x) == '.')
+            map.get(y).insert(x, 'X'); // found an intersection, mark it with an X
+        else if(map.get(y).charAt(x) == (' '))
+            map.get(y).insert(x, '.'); // just need to write a normal line
     }
 
     private void goRight(int amount){
@@ -72,13 +93,6 @@ public class Part1 {
         int targetX = x - amount;
         while(x > targetX){
             x--;
-            if(x < 0)
-                while(x < 0) {
-                    map.get(y).add(0, ' ');
-                    x++;
-                    targetX++;
-                    startingX++;
-                }
             drawLineSegment();
         }
     }
@@ -87,13 +101,6 @@ public class Part1 {
         int targetY = y - amount;
         while(y > targetY){
             y--;
-            if(y < 0)
-                while(y < 0) {
-                    map.add(0, new LinkedList<>());
-                    y++;
-                    targetY++;
-                    startingY++;
-                }
             drawLineSegment();
         }
     }
@@ -115,16 +122,17 @@ public class Part1 {
 
     public String visualiseMap(){
         StringBuilder mapString = new StringBuilder();
-        for(List<Character> xs : map){
-            String row = xs.stream().map(c -> ""+c).reduce("", (acc, c) -> acc + c);
-            mapString.append(row).append("\n");
+        for(StringBuilder xs : map){
+            mapString.append(xs.toString()).append("\n");
         }
         return mapString.toString();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         Part1 part1 = new Part1();
-        part1.parseMultipleLines(new InputReader().readAsList("day3.txt"));
+        List<String> input = new InputReader().readAsList("day3.txt");
+        part1.initialiseMap(input);
+        part1.parseMultipleLines(input);
         System.out.println(part1.visualiseMap());
     }
 }
