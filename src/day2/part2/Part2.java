@@ -2,7 +2,7 @@ package day2.part2;
 
 import utils.InputReader;
 import utils.Pair;
-import utils.UnknownOpCodeException;
+import lilmachine.UnknownOpCodeException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

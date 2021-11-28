@@ -1,4 +1,4 @@
-package utils;
+package lilmachine;
 
 public class UnknownOpCodeException extends RuntimeException{
 }
