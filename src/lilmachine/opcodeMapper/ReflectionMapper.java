@@ -21,6 +21,11 @@ public class ReflectionMapper implements OpCodeMapper{
         opcodes.put(2, Multiplication.class);
         opcodes.put(3, Input.class);
         opcodes.put(4, Output.class);
+        opcodes.put(5, JumpIfTrue.class);
+        opcodes.put(6, JumpIfFalse.class);
+        opcodes.put(7, LessThan.class);
+        opcodes.put(8, Equals.class);
+
         opcodes.put(99, Halt.class);
     }
 
