@@ -22,15 +22,4 @@ public class InputReader {
         BufferedReader br = new BufferedReader(fr);
         return br.lines().collect(Collectors.toList());
     }
-
-    public List<Integer> readProgram(String src) throws FileNotFoundException {
-        FileReader fr = new FileReader("resources/" + src);
-        BufferedReader br = new BufferedReader(fr);
-
-        String programAsLine = br.lines().collect(Collectors.toList()).get(0);
-
-        return Arrays.stream(programAsLine.split(","))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-    }
 }

@@ -1,5 +1,6 @@
 package day2.part1;
 
+import lilmachine.ProgramReader;
 import utils.InputReader;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class Part1 {
     public static void main(String[] args) throws Exception{
         Part1 part1 = new Part1();
         List<Integer> finalState = part1.computeProgram(
-                new InputReader().readProgram("day2.txt")
+                new ProgramReader().readProgram("day2.txt")
         );
         System.out.println(finalState.get(0));
     }

@@ -1,5 +1,6 @@
 package day2.part2;
 
+import lilmachine.ProgramReader;
 import utils.InputReader;
 import utils.Pair;
 import lilmachine.UnknownOpCodeException;
@@ -36,7 +37,7 @@ public class Part2 {
     }
 
     public Pair<Integer, Integer> getInputsWhichGive(int target) throws FileNotFoundException {
-        List<Integer> initialState = new InputReader().readProgram("day2.txt");
+        List<Integer> initialState = new ProgramReader().readProgram("day2.txt");
         List<Integer> attemptState = new ArrayList<>();
 
         int noun = 0, verb = 0;
