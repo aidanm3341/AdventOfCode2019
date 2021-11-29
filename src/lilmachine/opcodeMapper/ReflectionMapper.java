@@ -1,6 +1,7 @@
 package lilmachine.opcodeMapper;
 
 import lilmachine.ProgramState;
+import lilmachine.exceptions.UnknownOpCodeException;
 import lilmachine.opcodes.*;
 import lilmachine.parameters.Parameter;
 import lilmachine.parameters.ParameterMode;
@@ -32,8 +33,10 @@ public class ReflectionMapper implements OpCodeMapper{
     @Override
     public OpCode getOpCode(ProgramState state, String opStr) {
         try {
-
             int op = Integer.parseInt(opStr.substring(3,5));
+            if(!opcodes.containsKey(op))
+                throw new UnknownOpCodeException();
+
             Class<? extends OpCode> opcode = opcodes.get(op);
 
             List<Parameter> parameters = new ArrayList<>();
