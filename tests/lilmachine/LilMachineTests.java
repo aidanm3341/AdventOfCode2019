@@ -1,5 +1,5 @@
-import lilmachine.LilMachine;
-import lilmachine.ProgramReader;
+package lilmachine;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +43,13 @@ public class LilMachineTests {
         lilMachine.computeProgram();
         Assertions.assertEquals(30, lilMachine.getState().get(0));
         Assertions.assertEquals(2, lilMachine.getState().get(4));
+    }
+
+    @Test
+    public void testNegativeAddition() throws FileNotFoundException {
+        lilMachine = new LilMachine(programReader.readProgramFromString("1101,-1,-2,0,99"));
+        lilMachine.computeProgram();
+        Assertions.assertEquals(-3, lilMachine.getState().get(0));
     }
 
 }

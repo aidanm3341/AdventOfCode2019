@@ -4,6 +4,7 @@ import lilmachine.io.input.InputHandler;
 import lilmachine.io.input.SystemInputHandler;
 import lilmachine.io.output.OutputHandler;
 import lilmachine.io.output.SystemOutputHandler;
+import lilmachine.opcodeMapper.HardCodedMapper;
 import lilmachine.opcodeMapper.OpCodeMapper;
 import lilmachine.opcodeMapper.ReflectionMapper;
 import lilmachine.opcodes.*;

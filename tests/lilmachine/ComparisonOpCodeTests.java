@@ -1,3 +1,5 @@
+package lilmachine;
+
 import lilmachine.LilMachine;
 import lilmachine.ProgramReader;
 import org.junit.jupiter.api.Assertions;
