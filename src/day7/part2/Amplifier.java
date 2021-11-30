@@ -12,7 +12,7 @@ public class Amplifier implements Runnable{
 
     private LilMachine lilMachine;
     private final BlockingQueueMultipleInputHandler inputHandler;
-    private int output;
+    private long output;
     private boolean isComplete;
 
     public Amplifier(int phaseSetting){
@@ -34,15 +34,15 @@ public class Amplifier implements Runnable{
         lilMachine.setOutputHandler(outputHandler);
     }
 
-    public void addInput(int input){
+    public void addInput(long input){
         inputHandler.addInput(input);
     }
 
-    public int getOutput() {
+    public long getOutput() {
         return output;
     }
 
-    public void setOutput(int output) {
+    public void setOutput(long output) {
         this.output = output;
     }
 

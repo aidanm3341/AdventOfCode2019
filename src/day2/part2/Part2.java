@@ -11,19 +11,19 @@ import java.util.List;
 public class Part2 {
     public Part2(){ }
 
-    public List<Integer> computeProgram(List<Integer> i){
+    public List<Long> computeProgram(List<Long> i){
         int programCounter = 0;
         int opCode;
         do{
-            opCode = i.get(programCounter);
+            opCode = Math.toIntExact(i.get(programCounter));
             switch(opCode) {
                 case 1: // add
-                    int addition = i.get(i.get(programCounter + 1)) + i.get(i.get(programCounter + 2));
-                    i.set(i.get(programCounter + 3), addition);
+                    long addition = i.get(Math.toIntExact(i.get(programCounter + 1))) + i.get(Math.toIntExact(i.get(programCounter + 2)));
+                    i.set(Math.toIntExact(i.get(programCounter + 3)), addition);
                     break;
                 case 2: // multiply
-                    int multiplication = i.get(i.get(programCounter + 1)) * i.get(i.get(programCounter + 2));
-                    i.set(i.get(programCounter + 3), multiplication);
+                    long multiplication = i.get(Math.toIntExact(i.get(programCounter + 1))) * i.get(Math.toIntExact(i.get(programCounter + 2)));
+                    i.set(Math.toIntExact(i.get(programCounter + 3)), multiplication);
                     break;
                 case 99: // halt
                     break;
@@ -35,11 +35,11 @@ public class Part2 {
         return i;
     }
 
-    public Pair<Integer, Integer> getInputsWhichGive(int target) throws FileNotFoundException {
-        List<Integer> initialState = new ProgramReader().readProgram("day2.txt");
-        List<Integer> attemptState = new ArrayList<>();
+    public Pair<Long, Long> getInputsWhichGive(int target) throws FileNotFoundException {
+        List<Long> initialState = new ProgramReader().readProgram("day2.txt");
+        List<Long> attemptState = new ArrayList<>();
 
-        int noun = 0, verb = 0;
+        long noun = 0, verb = 0;
         for(noun = 0; noun <= 99; noun++) {
             for(verb = 0; verb <= 99; verb++) {
                 attemptState.clear();
@@ -52,7 +52,7 @@ public class Part2 {
                 }
             }
         }
-        return new Pair<>(0, 0);
+        return new Pair<Long, Long>(0L, 0L);
     }
 
 
@@ -60,7 +60,7 @@ public class Part2 {
         Part2 part1 = new Part2();
 
         int target = 19690720;
-        Pair<Integer, Integer> answer = part1.getInputsWhichGive(target);
+        Pair<Long, Long> answer = part1.getInputsWhichGive(target);
 
         System.out.println(100 * answer.getFst() + answer.getSnd());
     }

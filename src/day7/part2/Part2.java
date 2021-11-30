@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class Part2 {
 
-    public int tryCombination(int... phases) throws InterruptedException {
+    public long tryCombination(int... phases) throws InterruptedException {
         List<Amplifier> amps = Arrays.stream(phases)
                 .mapToObj(Amplifier::new)
                 .collect(Collectors.toList());
@@ -45,9 +45,9 @@ public class Part2 {
 
         List<List<Integer>> permutations = Permuter.permute(new int[]{5, 6, 7, 8, 9});
 
-        int max = 0;
+        long max = 0;
         for(List<Integer> inputs : permutations){
-            int output = part2.tryCombination(inputs.get(0), inputs.get(1), inputs.get(2), inputs.get(3), inputs.get(4));
+            long output = part2.tryCombination(inputs.get(0), inputs.get(1), inputs.get(2), inputs.get(3), inputs.get(4));
             max = Math.max(max, output);
         }
         System.out.println(max);

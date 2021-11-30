@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Part1 {
 
-    public int tryCombination(int phase1, int phase2, int phase3, int phase4, int phase5){
+    public long tryCombination(int phase1, int phase2, int phase3, int phase4, int phase5){
         Amplifier amp1 = new Amplifier(phase1);
         Amplifier amp2 = new Amplifier(phase2);
         Amplifier amp3 = new Amplifier(phase3);
@@ -48,9 +48,9 @@ public class Part1 {
 
         List<List<Integer>> permutations = part1.permute(new int[]{0, 1, 2, 3, 4});
 
-        int max = 0;
+        long max = 0;
         for(List<Integer> inputs : permutations){
-            int output = part1.tryCombination(inputs.get(0), inputs.get(1), inputs.get(2), inputs.get(3), inputs.get(4));
+            long output = part1.tryCombination(inputs.get(0), inputs.get(1), inputs.get(2), inputs.get(3), inputs.get(4));
             max = Math.max(max, output);
         }
         System.out.println(max);

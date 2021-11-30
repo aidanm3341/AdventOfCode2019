@@ -15,7 +15,7 @@ public class Multiplication implements OpCode {
 
     @Override
     public void apply(ProgramState state) {
-        int answer = x.read(state) * y.read(state);
+        long answer = x.read(state) * y.read(state);
         output.write(state, answer);
         state.incrementIP(4);
     }

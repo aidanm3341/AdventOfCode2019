@@ -5,11 +5,11 @@ import java.util.List;
 
 public class ProgramState {
     private int instructionPointer;
-    private List<Integer> state;
+    private final List<Long> state;
 
     private int relativeBase;
 
-    public ProgramState(List<Integer> initialState){
+    public ProgramState(List<Long> initialState){
         state = initialState;
         instructionPointer = 0;
         relativeBase = 0;
@@ -23,19 +23,23 @@ public class ProgramState {
         this.instructionPointer = instructionPointer;
     }
 
+    public void setIP(long instructionPointer) {
+        this.instructionPointer = (int) instructionPointer;
+    }
+
     public void incrementIP(int count){
         instructionPointer += count;
     }
 
-    public int get(int index) {
+    public long get(int index) {
         return state.get(index);
     }
 
-    public void set(int index, int value) {
+    public void set(int index, long value) {
         state.set(index, value);
     }
 
-    public List<Integer> getState() {
+    public List<Long> getState() {
         return Collections.unmodifiableList(state);
     }
 
@@ -45,5 +49,9 @@ public class ProgramState {
 
     public void setRelativeBase(int relativeBase) {
         this.relativeBase = relativeBase;
+    }
+
+    public void setRelativeBase(long relativeBase) {
+        this.relativeBase = (int) relativeBase;
     }
 }

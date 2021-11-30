@@ -19,7 +19,7 @@ public class LilMachine {
     private InputHandler inputHandler;
     private OutputHandler outputHandler;
 
-    public LilMachine(List<Integer> i){
+    public LilMachine(List<Long> i){
         state = new ProgramState(i);
         opCodeMapper = new ReflectionMapper();
 
@@ -36,7 +36,7 @@ public class LilMachine {
     }
 
     private OpCode getNextOpCode(){
-        StringBuilder builder = new StringBuilder(String.valueOf(state.get(state.getIP())));
+        StringBuilder builder = new StringBuilder(String.valueOf(state.get((int) state.getIP())));
         while(builder.length() < 5)
             builder.insert(0, "0");
 
@@ -60,14 +60,14 @@ public class LilMachine {
         this.outputHandler = outputHandler;
     }
 
-    public List<Integer> getState() {
+    public List<Long> getState() {
         return state.getState();
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Integer i : state.getState()){
+        for (Long i : state.getState()){
             builder.append(",").append(i);
         }
         builder.deleteCharAt(0);

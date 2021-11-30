@@ -12,7 +12,7 @@ public class Amplifier {
 
     private LilMachine lilMachine;
     private final QueueBasedMultipleInputHandler inputHandler;
-    private int output;
+    private long output;
 
     public Amplifier(int phaseSetting){
         lilMachine = null;
@@ -27,7 +27,7 @@ public class Amplifier {
         lilMachine.setInputHandler(inputHandler);
     }
 
-    public int calculateOutput(int input){
+    public long calculateOutput(long input){
         inputHandler.addInput(input);
 
         lilMachine.setOutputHandler(x -> output = x);
