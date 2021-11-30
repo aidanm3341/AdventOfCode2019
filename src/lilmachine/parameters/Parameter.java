@@ -17,6 +17,7 @@ public class Parameter {
         return switch (mode) {
             case IMMEDIATE_MODE -> value;
             case POSITION_MODE -> state.get(value);
+            case RELATIVE_MODE -> state.get(value + state.getRelativeBase());
         };
     }
 
@@ -24,7 +25,8 @@ public class Parameter {
         switch (mode) {
             case IMMEDIATE_MODE -> throw new IllegalModeException();
             case POSITION_MODE -> state.set(value, data);
-        };
+            case RELATIVE_MODE -> state.set(value + state.getRelativeBase(), data);
+        }
     }
 
     @Override

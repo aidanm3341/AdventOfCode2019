@@ -7,9 +7,12 @@ public class ProgramState {
     private int instructionPointer;
     private List<Integer> state;
 
+    private int relativeBase;
+
     public ProgramState(List<Integer> initialState){
         state = initialState;
         instructionPointer = 0;
+        relativeBase = 0;
     }
 
     public int getIP() {
@@ -34,5 +37,13 @@ public class ProgramState {
 
     public List<Integer> getState() {
         return Collections.unmodifiableList(state);
+    }
+
+    public int getRelativeBase() {
+        return relativeBase;
+    }
+
+    public void setRelativeBase(int relativeBase) {
+        this.relativeBase = relativeBase;
     }
 }
