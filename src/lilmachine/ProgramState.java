@@ -10,7 +10,11 @@ public class ProgramState {
     private int relativeBase;
 
     public ProgramState(List<Long> initialState){
+        // initialise the memory and add some blank memory at the end
         state = initialState;
+        for (int i = 0; i < 1000; i++)
+            state.add(0L);
+
         instructionPointer = 0;
         relativeBase = 0;
     }
@@ -36,6 +40,8 @@ public class ProgramState {
     }
 
     public void set(int index, long value) {
+        while(index >= state.size())
+            state.add(0L);
         state.set(index, value);
     }
 
