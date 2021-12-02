@@ -1,13 +1,12 @@
-package day11;
+package utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Grid;
 
 public class GridTest {
 
-    private Grid<Integer> grid;
+    private InfiniteGrid<Integer> grid;
 
     @BeforeEach
     public void init(){
@@ -16,43 +15,43 @@ public class GridTest {
 
     @Test
     public void testAddElement() {
-        grid = new Grid<>(0);
-        grid.write(1, 0, 0);
+        grid = new InfiniteGrid<>(0);
+        grid.set(1, 0, 0);
         Assertions.assertEquals(1, grid.getElementAt(0, 0));
     }
 
     @Test
     public void testNegativeIndices() {
-        grid = new Grid<>();
-        grid.write(1, -1, -1);
+        grid = new InfiniteGrid<>();
+        grid.set(1, -1, -1);
         System.out.println(grid.toString());
         Assertions.assertEquals(1, grid.getElementAt(-1, -1));
     }
 
     @Test
     public void testUnbalancedIndices() {
-        grid = new Grid<>();
-        grid.write(1, -2, -3);
+        grid = new InfiniteGrid<>();
+        grid.set(1, -2, -3);
         Assertions.assertEquals(1, grid.getElementAt(-2, -3));
     }
 
     @Test
     public void testMultipleAdditions() {
-        grid = new Grid<>(0);
-        grid.write(1, 0, 0);
-        grid.write(2, -1, -2);
-        grid.write(3, 1, 2);
+        grid = new InfiniteGrid<>(0);
+        grid.set(1, 0, 0);
+        grid.set(2, -1, -2);
+        grid.set(3, 1, 2);
         System.out.println(grid.toString());
         Assertions.assertEquals(1, grid.getElementAt(0, 0));
     }
 
     @Test
     public void testGettingElementOnBoundary() {
-        grid = new Grid<>();
-        grid.write(1, 1, 1);
-        grid.write(2, -1, -2);
-        grid.write(3, 4, 0);
-        grid.write(4, -4, 0);
+        grid = new InfiniteGrid<>();
+        grid.set(1, 1, 1);
+        grid.set(2, -1, -2);
+        grid.set(3, 4, 0);
+        grid.set(4, -4, 0);
         System.out.println(grid.toString());
         Assertions.assertEquals(4, grid.getElementAt(-4, 0));
     }

@@ -3,13 +3,13 @@ package utils;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Grid<T> {
+public class InfiniteGrid<T> {
     private final LinkedList<LinkedList<T>> grid;
 
     private int xOffset, yOffset;
-    private T defaultElement;
+    private final T defaultElement;
 
-    public Grid(T defaultElement){
+    public InfiniteGrid(T defaultElement){
         grid = new LinkedList<>();
         this.defaultElement = defaultElement;
 
@@ -21,11 +21,13 @@ public class Grid<T> {
         yOffset = 0;
     }
 
-    public Grid(){
+    public InfiniteGrid(){
         this(null);
     }
 
-    public void write(T element, int x, int y){
+    public void set(T element, int x, int y){
+        y = -y;
+
         if(x < -xOffset){
             padRows(Math.abs(xOffset + x), true);
             xOffset = -x;
@@ -65,7 +67,11 @@ public class Grid<T> {
     }
 
     public T getElementAt(int x, int y){
-        return grid.get(y + yOffset).get(x + xOffset);
+        if(x + xOffset >= grid.get(0).size() || y + yOffset >= grid.size() ||
+                x + xOffset < 0 || y + yOffset < 0)
+            return defaultElement;
+        else
+            return grid.get(y + yOffset).get(x + xOffset);
     }
 
     @Override
@@ -74,9 +80,9 @@ public class Grid<T> {
         for(List<T> ts : grid){
             output.append(ts.stream().map(t -> {
                 if(t == null)
-                    return " . ";
+                    return ".";
                 else
-                    return " " + t.toString() + " ";
+                    return t.toString();
             }).reduce((acc, str) -> acc + " " + str).orElse(""));
             output.append("\n");
         }
