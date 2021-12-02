@@ -88,6 +88,14 @@ public class InfiniteGrid<T> implements Iterable<T> {
         return output.toString();
     }
 
+    public int getWidth(){
+        return grid.get(0).size();
+    }
+
+    public int getHeight(){
+        return grid.size();
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {

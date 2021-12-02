@@ -1,13 +1,12 @@
-package day13;
+package day13.part1;
 
 import lilmachine.LilMachine;
 import lilmachine.ProgramReader;
-import lilmachine.io.output.OutputHandler;
 import utils.InfiniteGrid;
 
 import java.io.FileNotFoundException;
 
-public class ArcadeMachine implements TileListener {
+public class ArcadeMachine implements ArcadeMachineOutputListener {
 
     private final InfiniteGrid<Long> grid;
     private LilMachine machine;
@@ -41,5 +40,14 @@ public class ArcadeMachine implements TileListener {
     @Override
     public void sendNewTile(int x, int y, int tileID) {
         grid.set((long) tileID, x, y);
+    }
+
+    @Override
+    public void updateScore(long score) {
+
+    }
+
+    public InfiniteGrid<Long> getGrid() {
+        return grid;
     }
 }

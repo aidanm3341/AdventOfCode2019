@@ -1,4 +1,4 @@
-package day13;
+package day13.part2;
 
 import lilmachine.io.output.OutputHandler;
 
@@ -10,7 +10,7 @@ public class TileBuildingOutputHandler implements OutputHandler {
     private int outputCount;
     private int x, y, tileID;
 
-    private final List<TileListener> listeners;
+    private final List<ArcadeMachineOutputListener> listeners;
 
     public TileBuildingOutputHandler(){
         listeners = new ArrayList<>();
@@ -33,11 +33,11 @@ public class TileBuildingOutputHandler implements OutputHandler {
     }
 
     private void sendTile(){
-        for(TileListener tileListener : listeners)
-            tileListener.sendNewTile(x, y, tileID);
+        for(ArcadeMachineOutputListener arcadeMachineOutputListener : listeners)
+            arcadeMachineOutputListener.sendNewTile(x, y, tileID);
     }
 
-    public void addListener(TileListener listener){
+    public void addListener(ArcadeMachineOutputListener listener){
         listeners.add(listener);
     }
 }
