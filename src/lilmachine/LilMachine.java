@@ -19,12 +19,16 @@ public class LilMachine {
     private InputHandler inputHandler;
     private OutputHandler outputHandler;
 
+    private int timer;
+
     public LilMachine(List<Long> i){
         state = new ProgramState(i);
         opCodeMapper = new ReflectionMapper();
 
         inputHandler = new SystemInputHandler();
         outputHandler = new SystemOutputHandler();
+
+        timer = 0;
     }
 
     public void computeProgram(){
@@ -32,6 +36,18 @@ public class LilMachine {
         do{
             opCode = getNextOpCode();
             opCode.apply(state);
+        } while (!(opCode instanceof Halt));
+    }
+
+    public void computeProgram(int FPS){
+        OpCode opCode = null;
+        do{
+            if(timer > FPS) {
+                opCode = getNextOpCode();
+                opCode.apply(state);
+                timer = 0;
+            }
+            timer++;
         } while (!(opCode instanceof Halt));
     }
 
