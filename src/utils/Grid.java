@@ -7,15 +7,22 @@ public class Grid<T> {
     private final LinkedList<LinkedList<T>> grid;
 
     private int xOffset, yOffset;
+    private T defaultElement;
 
-    public Grid(){
+    public Grid(T defaultElement){
         grid = new LinkedList<>();
+        this.defaultElement = defaultElement;
+
         LinkedList<T> firstElement = new LinkedList<>();
-        firstElement.add(null);
+        firstElement.add(defaultElement);
         grid.add(firstElement);
 
         xOffset = 0;
         yOffset = 0;
+    }
+
+    public Grid(){
+        this(null);
     }
 
     public void write(T element, int x, int y){
@@ -40,16 +47,16 @@ public class Grid<T> {
         for (LinkedList<T> ts : grid)
             for (int j = 0; j < amount; j++)
                 if(atStart)
-                    ts.addFirst( null);
+                    ts.addFirst( defaultElement);
                 else
-                    ts.addLast( null);
+                    ts.addLast( defaultElement);
     }
 
     private void padColumns(int amount, boolean atStart){
         for (int i = 0; i < amount; i++) {
             LinkedList<T> list = new LinkedList<>();
             for (int j = 0; j < grid.get(0).size(); j++)
-                list.add(null);
+                list.add(defaultElement);
             if(atStart)
                 grid.addFirst(list);
             else

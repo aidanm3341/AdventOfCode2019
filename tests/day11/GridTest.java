@@ -16,7 +16,7 @@ public class GridTest {
 
     @Test
     public void testAddElement() {
-        grid = new Grid<>();
+        grid = new Grid<>(0);
         grid.write(1, 0, 0);
         Assertions.assertEquals(1, grid.getElementAt(0, 0));
     }
@@ -38,7 +38,7 @@ public class GridTest {
 
     @Test
     public void testMultipleAdditions() {
-        grid = new Grid<>();
+        grid = new Grid<>(0);
         grid.write(1, 0, 0);
         grid.write(2, -1, -2);
         grid.write(3, 1, 2);
