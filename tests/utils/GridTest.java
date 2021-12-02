@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 public class GridTest {
 
     private InfiniteGrid<Integer> grid;
@@ -56,5 +58,17 @@ public class GridTest {
         Assertions.assertEquals(4, grid.getElementAt(-4, 0));
     }
 
+    @Test
+    public void testIterator() {
+        grid = new InfiniteGrid<>(0);
+        grid.set(1, 1, 1);
+        grid.set(2, 0, -1);
+        System.out.println(grid.toString());
 
+        Iterator<Integer> iterator = grid.iterator();
+        while(iterator.hasNext()){
+            Assertions.assertEquals(2, iterator.next());
+            break;
+        }
+    }
 }

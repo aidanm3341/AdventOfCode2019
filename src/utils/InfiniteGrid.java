@@ -1,9 +1,10 @@
 package utils;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class InfiniteGrid<T> {
+public class InfiniteGrid<T> implements Iterable<T> {
     private final LinkedList<LinkedList<T>> grid;
 
     private int xOffset, yOffset;
@@ -26,8 +27,6 @@ public class InfiniteGrid<T> {
     }
 
     public void set(T element, int x, int y){
-        y = -y;
-
         if(x < -xOffset){
             padRows(Math.abs(xOffset + x), true);
             xOffset = -x;
@@ -87,5 +86,25 @@ public class InfiniteGrid<T> {
             output.append("\n");
         }
         return output.toString();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < grid.size() * grid.get(0).size();
+            }
+
+            @Override
+            public T next() {
+                int x = currentIndex % grid.get(0).size();
+                int y = currentIndex / grid.get(0).size();
+                currentIndex++;
+                return grid.get(y).get(x);
+            }
+        };
     }
 }
