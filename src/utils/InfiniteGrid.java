@@ -73,6 +73,16 @@ public class InfiniteGrid<T> implements Iterable<T> {
             return grid.get(y + yOffset).get(x + xOffset);
     }
 
+    public Pair<Integer, Integer> findFirst(T t){
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if(getElementAt(i, j).equals(t))
+                    return new Pair<>(i, j);
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
