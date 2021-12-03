@@ -1,6 +1,5 @@
 package day13.part2;
 
-import day13.part2.engine.Tile;
 import lilmachine.io.input.InputHandler;
 import utils.InfiniteGrid;
 

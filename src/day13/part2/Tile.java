@@ -1,4 +1,4 @@
-package day13.part2.engine;
+package day13.part2;
 
 public enum Tile {
     EMPTY(0), WALL(1), BLOCK(2), PADDLE(3), BALL(4);
