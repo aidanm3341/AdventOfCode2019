@@ -2,7 +2,7 @@ package day13.part2.engine;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -57,6 +57,8 @@ public class GameLoop extends JPanel implements Runnable{
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.requestFocus();
+        requestFocus();
     }
 
     public void start() {
@@ -102,6 +104,7 @@ public class GameLoop extends JPanel implements Runnable{
         initialize();
 
         while (running) {
+            frame.requestFocus();
             long now = System.nanoTime();
             unprocessed += (now - lastTime) / nsPerTick;
             lastTime = now;
@@ -126,7 +129,7 @@ public class GameLoop extends JPanel implements Runnable{
 
             if (System.currentTimeMillis() - lastTimer1 > 1000) {
                 lastTimer1 += 1000;
-                System.out.println(ticks + " ticks, " + frames + " fps");
+//                System.out.println(ticks + " ticks, " + frames + " fps");
                 frames = 0;
                 ticks = 0;
             }
@@ -179,5 +182,10 @@ public class GameLoop extends JPanel implements Runnable{
     public synchronized void addMouseListener(MouseListener l) {
         super.addMouseListener(l);
         canvas.addMouseListener(l);
+    }
+
+    public void addKeyListener(KeyListener keyListener){
+        super.addKeyListener(keyListener);
+        frame.addKeyListener(keyListener);
     }
 }

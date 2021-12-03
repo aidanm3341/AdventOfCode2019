@@ -33,6 +33,9 @@ public class TileBuildingOutputHandler implements OutputHandler {
     }
 
     private void sendTile(){
+        if(x == -1 && y == 0)
+            for(ArcadeMachineOutputListener arcadeMachineOutputListener : listeners)
+                arcadeMachineOutputListener.updateScore(tileID); // not really the tileID though
         for(ArcadeMachineOutputListener arcadeMachineOutputListener : listeners)
             arcadeMachineOutputListener.sendNewTile(x, y, tileID);
     }

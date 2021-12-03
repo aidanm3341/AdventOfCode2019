@@ -2,6 +2,7 @@ package day13.part2;
 
 import lilmachine.LilMachine;
 import lilmachine.ProgramReader;
+import lilmachine.io.input.InputHandler;
 import utils.InfiniteGrid;
 
 import java.io.FileNotFoundException;
@@ -36,10 +37,14 @@ public class ArcadeMachine implements ArcadeMachineOutputListener {
 
     @Override
     public void updateScore(long score) {
-
+        System.out.println(score);
     }
 
     public InfiniteGrid<Long> getGrid() {
         return grid;
+    }
+
+    public void setInputHandler(InputHandler inputHandler){
+        machine.setInputHandler(inputHandler);
     }
 }
