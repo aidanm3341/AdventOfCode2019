@@ -4,7 +4,7 @@ import lilmachine.io.output.OutputHandler;
 import lilmachine.parameters.Parameter;
 import lilmachine.ProgramState;
 
-public class Output implements OpCode{
+public class Output implements IOpCode {
 
     private final Parameter input;
 

@@ -2,6 +2,6 @@ package lilmachine.opcodes;
 
 import lilmachine.ProgramState;
 
-public interface OpCode {
+public interface IOpCode {
     void apply(ProgramState state);
 }

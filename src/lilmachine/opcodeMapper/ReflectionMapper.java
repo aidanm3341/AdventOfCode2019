@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ReflectionMapper implements OpCodeMapper{
 
-    private final Map<Integer, Class<? extends OpCode>> opcodes;
+    private final Map<Integer, Class<? extends IOpCode>> opcodes;
 
     public ReflectionMapper(){
         opcodes = new HashMap<>();
@@ -32,13 +32,13 @@ public class ReflectionMapper implements OpCodeMapper{
     }
 
     @Override
-    public OpCode getOpCode(ProgramState state, String opStr) {
+    public IOpCode getOpCode(ProgramState state, String opStr) {
         try {
             int op = Integer.parseInt(opStr.substring(3,5));
             if(!opcodes.containsKey(op))
                 throw new UnknownOpCodeException();
 
-            Class<? extends OpCode> opcode = opcodes.get(op);
+            Class<? extends IOpCode> opcode = opcodes.get(op);
 
             List<Parameter> parameters = new ArrayList<>();
             int parameterCount = 0;
@@ -56,9 +56,9 @@ public class ReflectionMapper implements OpCodeMapper{
             }
 
             if(parameterCount > 0)
-                return (OpCode) opcode.getConstructors()[0].newInstance(parameters.toArray());
+                return (IOpCode) opcode.getConstructors()[0].newInstance(parameters.toArray());
             else
-                return (OpCode) opcode.getConstructors()[0].newInstance();
+                return (IOpCode) opcode.getConstructors()[0].newInstance();
 
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

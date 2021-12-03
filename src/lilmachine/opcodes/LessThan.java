@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.ProgramState;
 import lilmachine.parameters.Parameter;
 
-public class LessThan implements OpCode{
+public class LessThan implements IOpCode {
 
     private final Parameter left, right, output;
 

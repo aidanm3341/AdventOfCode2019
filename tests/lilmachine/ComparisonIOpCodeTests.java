@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 
-public class ComparisonOpCodeTests {
+public class ComparisonIOpCodeTests {
 
     private LilMachine lilMachine;
     private ProgramReader programReader;

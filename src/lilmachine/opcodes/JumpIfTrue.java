@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.ProgramState;
 import lilmachine.parameters.Parameter;
 
-public class JumpIfTrue implements OpCode{
+public class JumpIfTrue implements IOpCode {
 
     private final Parameter test, value;
 

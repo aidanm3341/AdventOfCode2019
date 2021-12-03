@@ -8,7 +8,7 @@ import lilmachine.parameters.ParameterMode;
 
 public class HardCodedMapper implements OpCodeMapper{
     @Override
-    public OpCode getOpCode(ProgramState state, String opStr) {
+    public IOpCode getOpCode(ProgramState state, String opStr) {
         int op = Integer.parseInt(opStr.substring(3,5));
 
         Parameter param1, param2, param3;

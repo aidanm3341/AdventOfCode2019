@@ -4,7 +4,6 @@ import lilmachine.io.input.InputHandler;
 import lilmachine.io.input.SystemInputHandler;
 import lilmachine.io.output.OutputHandler;
 import lilmachine.io.output.SystemOutputHandler;
-import lilmachine.opcodeMapper.HardCodedMapper;
 import lilmachine.opcodeMapper.OpCodeMapper;
 import lilmachine.opcodeMapper.ReflectionMapper;
 import lilmachine.opcodes.*;
@@ -32,7 +31,7 @@ public class LilMachine {
     }
 
     public void computeProgram(){
-        OpCode opCode;
+        IOpCode opCode;
         do{
             opCode = getNextOpCode();
             opCode.apply(state);
@@ -40,7 +39,7 @@ public class LilMachine {
     }
 
     public void computeProgram(int FPS){
-        OpCode opCode = null;
+        IOpCode opCode = null;
         do{
             if(timer > FPS) {
                 opCode = getNextOpCode();
@@ -51,14 +50,14 @@ public class LilMachine {
         } while (!(opCode instanceof Halt));
     }
 
-    private OpCode getNextOpCode(){
+    private IOpCode getNextOpCode(){
         StringBuilder builder = new StringBuilder(String.valueOf(state.get((int) state.getIP())));
         while(builder.length() < 5)
             builder.insert(0, "0");
 
         String value = builder.toString();
 
-        OpCode opCode = opCodeMapper.getOpCode(state, value);
+        IOpCode opCode = opCodeMapper.getOpCode(state, value);
 
         if(opCode instanceof Input)
             ((Input) opCode).setInputHandler(inputHandler);

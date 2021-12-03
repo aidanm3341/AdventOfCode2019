@@ -1,8 +1,8 @@
 package lilmachine.opcodeMapper;
 
 import lilmachine.ProgramState;
-import lilmachine.opcodes.OpCode;
+import lilmachine.opcodes.IOpCode;
 
 public interface OpCodeMapper {
-    OpCode getOpCode(ProgramState state, String opStr);
+    IOpCode getOpCode(ProgramState state, String opStr);
 }

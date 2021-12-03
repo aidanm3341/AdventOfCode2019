@@ -3,7 +3,7 @@ package lilmachine.opcodes;
 import lilmachine.ProgramState;
 import lilmachine.parameters.Parameter;
 
-public class Rebase implements OpCode{
+public class Rebase implements IOpCode {
 
     private final Parameter amount;
 
