@@ -54,7 +54,7 @@ public class InputHandler implements KeyListener {
         }
     }
 
-    public InputHandler(GameLoop runner) {
+    public InputHandler(ProgramViewer runner) {
         runner.addKeyListener(this);
     }
 

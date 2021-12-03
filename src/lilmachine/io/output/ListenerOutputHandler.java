@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ListenerOutputHandler implements OutputHandler{
 
-    private final List<OutputListener> listeners;
+    private final List<OutputHandler> listeners;
 
     public ListenerOutputHandler(){
         listeners = new ArrayList<>();
@@ -13,15 +13,15 @@ public class ListenerOutputHandler implements OutputHandler{
 
     @Override
     public void handleOutput(long output) {
-        for(OutputListener listener : listeners)
-            listener.receiveOutput(output);
+        for(OutputHandler listener : listeners)
+            listener.handleOutput(output);
     }
 
-    public void addListener(OutputListener outputListener){
+    public void addListener(OutputHandler outputListener){
         listeners.add(outputListener);
     }
 
-    public void removeListener(OutputListener outputListener){
+    public void removeListener(OutputHandler outputListener){
         listeners.remove(outputListener);
     }
 }

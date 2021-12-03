@@ -4,8 +4,6 @@ import day13.part2.engine.Tile;
 import lilmachine.io.input.InputHandler;
 import utils.InfiniteGrid;
 
-import java.awt.event.KeyEvent;
-
 public class AutomaticArcadeInputHandler implements InputHandler {
 
     private final InfiniteGrid<Long> grid;
