@@ -31,31 +31,39 @@ public class ReflectionMapper implements OpCodeMapper{
         opcodes.put(99, Halt.class);
     }
 
+    private Class<? extends IOpCode> getOpCodeClass(String opStr){
+        int op = Integer.parseInt(opStr.substring(3,5));
+        if(!opcodes.containsKey(op))
+            throw new UnknownOpCodeException();
+
+        return opcodes.get(op);
+    }
+
+    private List<Parameter> collectParameters(ProgramState state, String opStr, Class<? extends IOpCode> opcode){
+        List<Parameter> parameters = new ArrayList<>();
+        int parameterCount = 0;
+        if(opcode.getConstructors()[0] != null)
+            parameterCount = opcode.getConstructors()[0].getParameterCount();
+
+        assert parameterCount <= 3 && parameterCount >= 0;
+
+        for (int i = 1; i <= parameterCount; i++) {
+            parameters.add(
+                    new Parameter(
+                            state.get(state.getIP() + i),
+                            ParameterMode.getMode(opStr.charAt(3 - i)))
+            );
+        }
+        return parameters;
+    }
+
     @Override
     public IOpCode getOpCode(ProgramState state, String opStr) {
         try {
-            int op = Integer.parseInt(opStr.substring(3,5));
-            if(!opcodes.containsKey(op))
-                throw new UnknownOpCodeException();
+            Class<? extends IOpCode> opcode = getOpCodeClass(opStr);
+            List<Parameter> parameters = collectParameters(state, opStr, opcode);
 
-            Class<? extends IOpCode> opcode = opcodes.get(op);
-
-            List<Parameter> parameters = new ArrayList<>();
-            int parameterCount = 0;
-            if(opcode.getConstructors()[0] != null)
-                parameterCount = opcode.getConstructors()[0].getParameterCount();
-
-            assert parameterCount <= 3 && parameterCount >= 0;
-
-            for (int i = 1; i <= parameterCount; i++) {
-                parameters.add(
-                        new Parameter(
-                                state.get(state.getIP() + i),
-                                ParameterMode.getMode(opStr.charAt(3 - i)))
-                );
-            }
-
-            if(parameterCount > 0)
+            if(parameters.size() > 0)
                 return (IOpCode) opcode.getConstructors()[0].newInstance(parameters.toArray());
             else
                 return (IOpCode) opcode.getConstructors()[0].newInstance();
